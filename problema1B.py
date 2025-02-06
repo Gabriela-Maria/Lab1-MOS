@@ -31,6 +31,10 @@ Model.trabajosIndividual = ConstraintList()
 for j in E:
     Model.trabajosIndividual.add(expr = sum(Model.x[i,j]*puntosHistoria[i] for i in T) <= capacidad)
 
+Model.trabajo = ConstraintList()
+for i in T:
+    Model.trabajo.add(expr = sum(Model.x[i,j] for j in E) <= 1)    
+
 # Cada trabajo se realiza solo una vez
 
 

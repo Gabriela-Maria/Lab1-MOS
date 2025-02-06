@@ -35,9 +35,12 @@ Model.trabajo = ConstraintList()
 for j in A:
     Model.trabajo.add(expr = sum(Model.x[i,j] for i in T) <= 1)
 
-Model.trabajador = Constraint(expr=Model.x[2,1]==0)
-Model.trabajador = Constraint(expr=Model.x[3,1]==0)
-Model.trabajador = Constraint(expr=Model.x[2,3]==0)
+#solo el trabajador 1 puede hacer el trabajo 1
+Model.rest1 = Constraint(expr=Model.x[2,1]==0)
+Model.rest2 = Constraint(expr=Model.x[3,1]==0)
+
+#el trabajo 3 no puede ser realizado por el trabajador 2
+Model.rest3 = Constraint(expr=Model.x[2,3]==0)
 
 # Especificación del solver
 SolverFactory('glpk').solve(Model)
