@@ -26,9 +26,13 @@ Model.x = Var(T, E, domain=Binary)
 Model.obj = Objective(expr = sum(Model.x[i, j]*prioridad[i] for i in T for j in E), sense=maximize)
 
 # Restricciones
+#Capacidad de desarrollador no se supere
 Model.trabajosIndividual = ConstraintList()
 for j in E:
     Model.trabajosIndividual.add(expr = sum(Model.x[i,j]*puntosHistoria[i] for i in T) <= capacidad)
+
+# Cada trabajo se realiza solo una vez
+
 
 # Especificación del solver
 SolverFactory('glpk').solve(Model)
