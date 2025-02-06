@@ -24,7 +24,7 @@ Model.x = Var(T, domain=Binary)
 Model.obj = Objective(expr = sum(Model.x[i]*prioridad[i] for i in T), sense=maximize)
 
 # Restricciones
-Model.res1 = Constraint(expr = sum(Model.x[i]*puntosHistoria[i] for i in T) <= 52)
+Model.res1 = Constraint(expr = sum(Model.x[i]*puntosHistoria[i] for i in T) <= capacidad)
 
 # Especificación del solver
 SolverFactory('glpk').solve(Model)
