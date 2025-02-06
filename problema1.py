@@ -7,20 +7,24 @@ from pyomo.opt import SolverFactory
 Model = ConcreteModel()
 
 # Data de entrada
-numProyectos=8
+numTareas=11
 
-p=RangeSet(1, numProyectos)
+capacidad = 52
 
-valor={1:2, 2:5, 3:4, 4:2, 5:6, 6:3, 7:1, 8:4}
+T=RangeSet(1, numTareas)
+
+puntosHistoria ={1:5, 2:3, 3:13, 4:1, 5:21, 6:2, 7:2, 8:5, 9:8, 10:13, 11:21}
+
+prioridad = {1:7, 2:5, 3:6, 4:3, 5:1, 6:4, 7:6, 8:6, 9:2, 10:7, 11:6}
 
 # Variable de decisión
-Model.x = Var(p, domain=Binary)
+Model.x = Var(T, domain=Binary)
 
 # Función objetivo
-Model.obj = Objective(expr = sum(Model.x[i]*valor[i] for i in p), sense=maximize)
+Model.obj = Objective(expr = sum(Model.x[i]*prioridad[i] for i in T), sense=maximize)
 
 # Restricciones
-Model.res1 = Constraint(expr = sum(Model.x[i] for i in p) == 2)
+Model.res1 = Constraint(expr = sum(Model.x[i]*puntosHistoria[i] for i in T) <= 52)
 
 # Especificación del solver
 SolverFactory('glpk').solve(Model)
