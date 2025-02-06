@@ -37,22 +37,22 @@ Model.obj = Objective(expr = sum(Model.x[i, j]*recursos[i]["valor"] for i in R f
 
 # Restricciones
 #1 - Seguridad de medicamentos 
-Model.res1 = Constraint(expr = (Model.x[2,1]) == 0)
+Model.rest1 = Constraint(expr = (Model.x[2,1]) == 0)
 
 #2 - compatibilidad entre equipos medicos y agua
-Model.aviones = ConstraintList()
+Model.rest2 = ConstraintList()
 for j in A:
-    Model.aviones.add(expr = (Model.x[3,j]+ Model.x[4,j]) <= 1)
+    Model.rest2.add(expr = (Model.x[3,j]+ Model.x[4,j]) <= 1)
 
 #3 - Capacidad de peso en aviones
-Model.pesos = ConstraintList()
+Model.rest3 = ConstraintList()
 for j in A:
-    Model.pesos.add(expr = sum(Model.x[i,j]*recursos[i]["peso"] for i in R) <= aviones[j]["capPeso"])
+    Model.rest3.add(expr = sum(Model.x[i,j]*recursos[i]["peso"] for i in R) <= aviones[j]["capPeso"])
 
 #4 - Capacidad de volumen en aviones
-Model.volumenes = ConstraintList()
+Model.rest4 = ConstraintList()
 for j in A:
-    Model.volumenes.add(expr = sum(Model.x[i,j]*recursos[i]["volumen"] for i in R) <= aviones[j]["capVolumen"])
+    Model.rest4.add(expr = sum(Model.x[i,j]*recursos[i]["volumen"] for i in R) <= aviones[j]["capVolumen"])
 
 
 # Especificación del solver

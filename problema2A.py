@@ -27,13 +27,15 @@ Model.x = Var(T, A, domain=Binary)
 Model.obj = Objective(expr = sum(Model.x[i, j]*ganancia[j] for i in T for j in A), sense=maximize)
 
 # Restricciones
-Model.tiempoLimite = ConstraintList()
+#cada trabajador no debe exceder su tiempo disponible
+Model.rest1 = ConstraintList()
 for i in T:
-    Model.tiempoLimite.add(expr = sum(Model.x[i,j]*tiempo[j] for j in A) <= horasMaximas[i])
+    Model.rest1.add(expr = sum(Model.x[i,j]*tiempo[j] for j in A) <= horasMaximas[i])
 
-Model.trabajo = ConstraintList()
+#cada trabajo debe ser realizado por un trabajador
+Model.rest2 = ConstraintList()
 for j in A:
-    Model.trabajo.add(expr = sum(Model.x[i,j] for i in T) <= 1)
+    Model.rest2.add(expr = sum(Model.x[i,j] for i in T) <= 1)
 
 
 # Especificación del solver

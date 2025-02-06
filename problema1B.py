@@ -27,13 +27,14 @@ Model.obj = Objective(expr = sum(Model.x[i, j]*prioridad[i] for i in T for j in 
 
 # Restricciones
 #Capacidad de desarrollador no se supere
-Model.trabajosIndividual = ConstraintList()
+Model.rest1 = ConstraintList()
 for j in E:
-    Model.trabajosIndividual.add(expr = sum(Model.x[i,j]*puntosHistoria[i] for i in T) <= capacidad)
+    Model.rest1.add(expr = sum(Model.x[i,j]*puntosHistoria[i] for i in T) <= capacidad)
 
-Model.trabajo = ConstraintList()
+#cada trabajo debe ser realizado por un trabajador
+Model.rest2 = ConstraintList()
 for i in T:
-    Model.trabajo.add(expr = sum(Model.x[i,j] for j in E) <= 1)    
+    Model.rest2.add(expr = sum(Model.x[i,j] for j in E) <= 1)    
 
 # Cada trabajo se realiza solo una vez
 
