@@ -35,7 +35,6 @@ Model.trabajo = ConstraintList()
 for j in A:
     Model.trabajo.add(expr = sum(Model.x[i,j] for i in T) <= 1)
 
-#Model.trabajador = Constraint(expr=Model.x[2,1]==0)
 
 # Especificación del solver
 SolverFactory('glpk').solve(Model)

@@ -41,7 +41,8 @@ Model.res1 = Constraint(expr = (Model.x[2,1]) == 0)
 
 #2 - compatibilidad entre equipos medicos y agua
 Model.aviones = ConstraintList()
-Model.aviones.add(expr = sum(Model.x[3,j]+ Model.x[4,j]for j in A) <= 1)
+for j in A:
+    Model.aviones.add(expr = (Model.x[3,j]+ Model.x[4,j]) <= 1)
 
 #3 - Capacidad de peso en aviones
 Model.pesos = ConstraintList()
