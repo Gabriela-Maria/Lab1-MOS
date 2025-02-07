@@ -10,10 +10,11 @@ Model = ConcreteModel()
 numTrabajadores=3
 numTrabajos=5
 
-
+# Conjuntos
 T=RangeSet(1, numTrabajadores) #trabajadores
 A=RangeSet(1,numTrabajos) # trabajos
  
+# Parámetros
 horasMaximas ={1:8, 2:10, 3:6} #disponibilidad por trabajador 
 
 ganancia = {1:50, 2:60, 3:40, 4:70, 5:30} #ganancia por trabajo

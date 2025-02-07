@@ -9,12 +9,13 @@ Model = ConcreteModel()
 # Data de entrada
 numRecursos=5
 numAviones=3
-
 capacidad = 13 #capacidad por desarrollador
 
+# Conjuntos
 R=RangeSet(1, numRecursos)
 A=RangeSet(1,numAviones)
  
+# Parámetros
 recursos = {
     1: {"valor": 50, "peso": 15, "volumen": 8},
     2: {"valor": 100, "peso": 5, "volumen": 2},
