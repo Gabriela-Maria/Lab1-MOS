@@ -11,12 +11,13 @@ Model = ConcreteModel()
 # Data de entrada
 numTareas=11
 numEquipo=4
-
 capacidad = 13 #capacidad por desarrollador
 
+# Conjuntos
 T=RangeSet(1, numTareas)
 E=RangeSet(1,numEquipo)
  
+# Parámetros
 puntosHistoria ={1:5, 2:3, 3:13, 4:1, 5:21, 6:2, 7:2, 8:5, 9:8, 10:13, 11:21}
 
 prioridad = {1:7, 2:5, 3:6, 4:3, 5:1, 6:4, 7:6, 8:6, 9:2, 10:7, 11:6}
