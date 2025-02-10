@@ -1,6 +1,8 @@
 
 from __future__ import division
 from pyomo.environ import *
+import matplotlib.pyplot as plt
+
 
 from pyomo.opt import SolverFactory
 
@@ -44,3 +46,28 @@ SolverFactory('glpk').solve(Model)
 
 Model.display()
 
+# tareas elegidas por cada desarrollador
+asignaciones = {j: [] for j in range(1, numEquipo+1)}
+
+for i in range(1, numTareas+1):
+    for j in range(1, numEquipo+1):
+        if Model.x[i, j]() == 1:
+            asignaciones[j].append(i)
+
+plt.figure(figsize=(10, 8))
+
+# circulitos
+for j, tareas in asignaciones.items():
+    y_positions = [j] * len(tareas)
+    plt.scatter(tareas, y_positions, label=f'Desarrollador {j}', s=100)
+
+# titulos
+plt.xlabel('Tareas')
+plt.ylabel('Desarrolladores')
+plt.title('Asignación de Tareas a Desarrolladores en la Parte B')
+plt.yticks(range(1, numEquipo+1), [f'Desarrollador {j}' for j in range(1, numEquipo+1)])
+plt.xticks(range(1, numTareas+1))
+plt.grid(axis='x', linestyle='--', alpha=0.7)
+
+# Mostrar el gráfico
+plt.show()

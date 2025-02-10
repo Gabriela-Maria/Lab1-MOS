@@ -1,6 +1,7 @@
 
 from __future__ import division
 from pyomo.environ import *
+import matplotlib.pyplot as plt
 
 from pyomo.opt import SolverFactory
 
@@ -32,3 +33,26 @@ SolverFactory('glpk').solve(Model)
 
 Model.display()
 
+#tareas seleccionadas por todos los desarrolladores
+tareas_seleccionadas = [i for i in range(1, numTareas+1) if Model.x[i]() == 1]
+
+puntos_historia_seleccionados = [puntosHistoria[i] for i in tareas_seleccionadas]
+total_puntos_historia = sum(puntos_historia_seleccionados)
+
+#grafico
+plt.figure(figsize=(10, 6))
+plt.bar(tareas_seleccionadas, puntos_historia_seleccionados, color='skyblue', edgecolor='black')
+
+#titulos
+plt.xlabel('Tareas Seleccionadas')
+plt.ylabel('Puntos de Historia')
+plt.title('Tareas Seleccionadas en la Parte A')
+plt.xticks(tareas_seleccionadas)
+
+for i, v in enumerate(puntos_historia_seleccionados):
+    plt.text(tareas_seleccionadas[i], v + 0.5, str(v), ha='center', fontsize=12)
+
+plt.text(0.5, -0.1, f'Total de puntos de historia: {total_puntos_historia}', 
+         ha='center', va='top', transform=plt.gca().transAxes, fontsize=14, fontweight='bold')
+
+plt.show()
